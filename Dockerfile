@@ -11,5 +11,5 @@ COPY . .
 COPY --from=frontend /app/client/dist ./client/dist
 RUN mvn package -DskipTests
 RUN jar tf target/Med-1.0-SNAPSHOT.jar | grep MANIFEST
-RUN unzip -p target/Med-1.0-SNAPSHOT.jar META-INF/MANIFEST.MF
+RUN jar xf target/Med-1.0-SNAPSHOT.jar META-INF/MANIFEST.MF && cat META-INF/MANIFEST.MF
 ENTRYPOINT ["java", "-jar", "target/Med-1.0-SNAPSHOT.jar"]

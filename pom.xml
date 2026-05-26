@@ -24,9 +24,11 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <manifestEntries>
-                                <Main-Class>org.example.Main</Main-Class>
-                            </manifestEntries>
+                            <archive>
+                                <manifest>
+                                    <mainClass>org.example.Main</mainClass>
+                                </manifest>
+                            </archive>
                         </configuration>
                     </execution>
                 </executions>

@@ -5,7 +5,7 @@ RUN npm install
 COPY client/ .
 RUN npm run build
 
-FROM eclipse-temurin:25-jdk AS backend
+FROM eclipse-temurin:21-jdk AS backend
 WORKDIR /app
 COPY . .
 COPY --from=frontend /app/client/dist ./client/dist

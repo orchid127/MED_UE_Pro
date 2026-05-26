@@ -9,7 +9,5 @@ FROM maven:3.9-eclipse-temurin-21 AS backend
 WORKDIR /app
 COPY . .
 COPY --from=frontend /app/client/dist ./client/dist
-RUN mvn package -DskipTests
-RUN jar tf target/Med-1.0-SNAPSHOT.jar | grep MANIFEST
-RUN jar xf target/Med-1.0-SNAPSHOT.jar META-INF/MANIFEST.MF && cat META-INF/MANIFEST.MF
-ENTRYPOINT ["java", "-jar", "target/Med-1.0-SNAPSHOT.jar"]
+RUN mvn package -DskipTests && ls target/
+ENTRYPOINT ["java", "-jar", "target/Med-1.0-SNAPSHOT-shaded.jar"]

@@ -5,9 +5,9 @@ RUN npm install
 COPY client/ .
 RUN npm run build
 
-FROM eclipse-temurin:21-jdk AS backend
+FROM maven:3.9-eclipse-temurin-21 AS backend
 WORKDIR /app
 COPY . .
 COPY --from=frontend /app/client/dist ./client/dist
-RUN ./mvnw package -DskipTests
-ENTRYPOINT ["java", "-jar", "target/your-app-jar-with-dependencies.jar"]
+RUN mvn package -DskipTests
+ENTRYPOINT ["java", "-jar", "target/Med-1.0-SNAPSHOT.jar"]

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import com.sun.net.httpserver.*;
 
 public class Main {
-    public static void main() throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         /*
          * 
          * // 159 ; Lamarck Caulaincourt ;12 ;False; 0

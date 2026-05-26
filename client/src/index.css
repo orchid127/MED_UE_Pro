@@ -21,3 +21,12 @@
     scrollbar-width: 2px;
     scrollbar-color: #123ABF transparent;
 }
+
+@font-face {
+    font-family: LilexNerd;
+    src: url("../public/fonts/LilexNerdFontMono-Regular.ttf");
+}
+
+@theme {
+    --font-lilex: LilexNerd, "sans-serif";
+}

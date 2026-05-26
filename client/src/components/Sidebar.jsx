@@ -26,7 +26,7 @@ function Sidebar() {
     }
 
     return (
-        <div className="flex flex-col m-5">
+        <div className="flex flex-col m-5 font-lilex">
             <div className="mb-4">
                 <h1 className="text-2xl text-[#123ABF] font-extrabold">graphe</h1>
             </div>

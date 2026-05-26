@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Navbar() {
     return (
-        <div className="flex flex-row items-center p-4 justify-between border-b border-[#c0caf8]">
+        <div className="flex flex-row items-center p-4 justify-between border-b border-[#c0caf8] font-lilex">
             <div className="flex">
                 <h1 className="text-3xl font-extrabold text-[#123ABF]">metro-efrei-dodo</h1>
             </div>

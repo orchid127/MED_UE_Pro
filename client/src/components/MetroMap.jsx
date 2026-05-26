@@ -118,7 +118,7 @@ function MetroMap() {
                 height={700}
                 className="bg-white"
             />
-            <button onClick={handleSearch} className="absolute"></button>
+            <button onClick={handleSearch} className="absolute font-lilex"></button>
         </div>
     )
 }

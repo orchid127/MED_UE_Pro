@@ -10,7 +10,7 @@ function MetroMap() {
 
     useEffect(() => {
         // récupération stations
-        fetch("http://localhost:8080/points")
+        fetch("/points")
             .then(res => res.text())
             .then(csv => {
                 const parsed = Papa.parse(csv, { header: true, delimiter: ";", transformHeader: header => header.trim() });
@@ -18,7 +18,7 @@ function MetroMap() {
             });
 
         // récupération aretes
-        fetch("http://localhost:8080/aretes")
+        fetch("/aretes")
             .then(res => res.text())
             .then(csv => {
                 const parsed = Papa.parse(csv, { header: true, delimiter: ";", transformHeader: header => header.trim() });
@@ -27,7 +27,7 @@ function MetroMap() {
             });
 
         // récupération aretes
-        fetch("http://localhost:8080/sommets")
+        fetch("/sommets")
             .then(res => res.text())
             .then(csv => {
                 const parsed = Papa.parse(csv, {
@@ -103,7 +103,7 @@ function MetroMap() {
 
     const handleSearch = async (departure, arrival) => {
         const res = await fetch(
-            `http://localhost:8080/chemin?from=${departure}&to=${arrival}`
+            `/chemin?from=${departure}&to=${arrival}`
         );
         const text = await res.text();
         const stationList = text.split(" -> ").map(s => s.trim());

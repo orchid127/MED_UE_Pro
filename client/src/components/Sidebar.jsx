@@ -7,14 +7,14 @@ function Sidebar() {
     const [relatedGraphText, setRelatedGraphText] = useState("")
 
     const handleSearch = async () => {
-        const response = await fetch(`http://localhost:8080/chemin?departure=${departure}&arrival=${arrival}`);
+        const response = await fetch(`/chemin?departure=${departure}&arrival=${arrival}`);
         const routeText = await response.text();
         const stationList = routeText.split(" -> ").map(s => s.trim());
         setRoute(stationList);
     }
 
     const handleCheckRelatedGraph = async () => {
-        const response = await fetch(`http://localhost:8080/connexite`);
+        const response = await fetch(`/connexite`);
         const text = await response.text();
         console.log("test ", text)
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import com.sun.net.httpserver.*;
 
 public class Main {
-    static void main() throws FileNotFoundException, IOException {
+    public static void main() throws FileNotFoundException, IOException {
         /*
          * 
          * // 159 ; Lamarck Caulaincourt ;12 ;False; 0
@@ -84,7 +84,8 @@ public class Main {
         System.out.println("------------------------");
 
         // creation serveur http
-        HttpServer serveur = HttpServer.create(new InetSocketAddress(8080), 0);
+        int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
+        HttpServer serveur = HttpServer.create(new InetSocketAddress("0.0.0.0", port), 0);
 
         // route pour obtenir le chemin
         serveur.createContext("/chemin", exchange -> {
@@ -125,7 +126,8 @@ public class Main {
             exchange.getResponseHeaders().add("Content-Type", "text/csv");
 
             // renvoie le résultat
-            byte[] response = Files.readAllBytes(Paths.get("src/main/resources/pospoints.csv"));
+            InputStream is = Main.class.getResourceAsStream("/pospoints.csv");
+            byte[] response = is.readAllBytes();
             exchange.sendResponseHeaders(200, response.length);
             OutputStream os = exchange.getResponseBody();
             os.write(response);
@@ -140,7 +142,8 @@ public class Main {
             exchange.getResponseHeaders().add("Content-Type", "text/csv");
 
             // renvoie le résultat
-            byte[] response = Files.readAllBytes(Paths.get("src/main/resources/aretes.csv"));
+            InputStream is = Main.class.getResourceAsStream("/aretes.csv");
+            byte[] response = is.readAllBytes();
             exchange.sendResponseHeaders(200, response.length);
             OutputStream os = exchange.getResponseBody();
             os.write(response);
@@ -155,7 +158,8 @@ public class Main {
             exchange.getResponseHeaders().add("Content-Type", "text/csv");
 
             // renvoie le résultat
-            byte[] response = Files.readAllBytes(Paths.get("src/main/resources/sommets.csv"));
+            InputStream is = Main.class.getResourceAsStream("/sommets.csv");
+            byte[] response = is.readAllBytes();
             exchange.sendResponseHeaders(200, response.length);
             OutputStream os = exchange.getResponseBody();
             os.write(response);
@@ -185,7 +189,36 @@ public class Main {
             os.close();
         });
 
+        serveur.createContext("/", exchange -> {
+            String filePath = "client/dist" + exchange.getRequestURI().getPath();
+            File file = new File(filePath);
+
+            if (!file.exists() || file.isDirectory()) {
+                file = new File("client/dist/index.html");
+            }
+
+            byte[] bytes = Files.readAllBytes(file.toPath());
+            exchange.getResponseHeaders().add("Content-Type", getContentType(file.getName()));
+            exchange.sendResponseHeaders(200, bytes.length);
+            exchange.getResponseBody().write(bytes);
+            exchange.getResponseBody().close();
+        });
+
         serveur.start();
         System.out.println("the server is running on port 8080 :D");
+    }
+
+    private static String getContentType(String path) {
+        if (path.endsWith(".js"))
+            return "application/javascript";
+        if (path.endsWith(".css"))
+            return "text/css";
+        if (path.endsWith(".html"))
+            return "text/html";
+        if (path.endsWith(".png"))
+            return "image/png";
+        if (path.endsWith(".svg"))
+            return "image/svg+xml";
+        return "application/octet-stream";
     }
 }
